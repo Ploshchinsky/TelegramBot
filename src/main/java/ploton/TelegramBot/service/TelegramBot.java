@@ -1,10 +1,12 @@
 package ploton.TelegramBot.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ploton.TelegramBot.config.BotConfig;
 
+@Component
 public class TelegramBot extends TelegramLongPollingBot {
 
     private final BotConfig botConfig;
