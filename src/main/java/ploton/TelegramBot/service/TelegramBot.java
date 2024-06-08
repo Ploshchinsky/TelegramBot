@@ -1,5 +1,7 @@
 package ploton.TelegramBot.service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -24,6 +26,7 @@ import java.util.List;
 
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
+    private static final Logger LOGGER = LogManager.getLogger(TelegramBot.class);
 
     @Value("${document.path}")
     private String DOC_PATH;
@@ -142,7 +145,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
+            LOGGER.error("Error (TelegramBot) - SEND MESSAGE: " + e.getMessage());
         }
     }
 
@@ -153,7 +156,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         try {
             execute(sendDocument);
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
+            LOGGER.error("Error (TelegramBot) - SEND DOCUMENT: " + e.getMessage());
         }
     }
 
@@ -164,7 +167,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         try {
             execute(sendChatAction);
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
+            LOGGER.error("Error (TelegramBot) - SEND CHAT ACTION: " + e.getMessage());
         }
     }
 
@@ -175,7 +178,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         try {
             execute(new SetMyCommands(commandList, new BotCommandScopeDefault(), null));
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
+            LOGGER.error("Error (TelegramBot) - MENU INIT: " + e.getMessage());
         }
     }
 
