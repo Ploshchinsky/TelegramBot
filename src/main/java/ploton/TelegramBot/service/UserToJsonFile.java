@@ -25,6 +25,7 @@ public class UserToJsonFile {
         //get id
         try {
             id = Files.readAllLines(path).size();
+            user.setId(id);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
