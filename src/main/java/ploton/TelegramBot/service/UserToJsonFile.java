@@ -16,17 +16,25 @@ import java.util.List;
 
 @Repository
 public class UserToJsonFile {
-    @Value("${json.repository}")
-    private static String jsonPath;
+    private static String jsonPath = "src/main/jsonRepository/users.json";
 
-    public static User save(User user) {
+    public static void save(User user) {
+        int id;
         String json;
+        Path path = Path.of(jsonPath);
+        //get id
+        try {
+            id = Files.readAllLines(path).size();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        //get json string from object
         try {
             json = new ObjectMapper().writeValueAsString(user) + "\n";
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        Path path = Path.of(jsonPath);
+        //write json string to file
         try {
             Files.write(
                     path,
@@ -35,7 +43,6 @@ public class UserToJsonFile {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
 
     public static void saveAll(List<User> list) {

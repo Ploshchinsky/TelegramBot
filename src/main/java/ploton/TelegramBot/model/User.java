@@ -19,4 +19,5 @@ public class User {
     private String email;
     private String phoneNumber;
     private Date lastRequest;
+
 }
